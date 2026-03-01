@@ -40,8 +40,6 @@ public class Document
             expiresAt: expiresAt,
             createdAt: DateTime.UtcNow,
             updatedAt: DateTime.UtcNow,
-            documentVersion: new List<DocumentVersion>(),
-            signatureRequest: new List<SignatureRequest>()
             );
 
     }
@@ -49,7 +47,7 @@ public class Document
     {
         if (!CanTransition(newStatus))
         {
-            throw new InvalidOperationException($"Impossible transition from {Status} to {nextStatus}");
+            throw new InvalidOperationException($"Impossible transition from {Status} to {newStatus}");
         }
         Status = newStatus;
     }
