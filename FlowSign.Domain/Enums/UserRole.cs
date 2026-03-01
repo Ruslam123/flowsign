@@ -1,8 +1,9 @@
-﻿using System;
+﻿namespace flowsing.Domain.Enums;
 
-public class Class1
+public enum userRole
 {
-	public Class1()
-	{
-	}
+    Admin, 
+    User, 
+    Signer, 
+    Viewer
 }

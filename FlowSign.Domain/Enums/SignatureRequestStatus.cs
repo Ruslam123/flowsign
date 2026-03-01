@@ -1,8 +1,10 @@
-﻿using System;
+﻿namespace flowsing.Domain.Enums;
 
-public class Class1
+public enum signatureRequestStatus
 {
-	public Class1()
-	{
-	}
+    Pending,
+    Active,
+    Signed,
+    Rejected,
+    Expired
 }

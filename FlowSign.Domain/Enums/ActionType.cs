@@ -1,8 +1,15 @@
-﻿using System;
+﻿namespace flowsing.Domain.Enums;
 
-public class Class1
+public enum ActionType
 {
-	public Class1()
-	{
-	}
+    UserRegistered,
+    UserLoggedIn,
+    DocumentCreated,
+    DocumentUpdated,
+    DocumentVersionUploaded,
+    WorkflowStarted,
+    DocumentViewed,
+    DocumentSigned,
+    DocumentRejected,
+    DocumentArchived
 }

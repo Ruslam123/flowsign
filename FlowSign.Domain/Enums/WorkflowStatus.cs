@@ -1,8 +1,9 @@
-﻿using System;
+﻿namespace flowsing.Domain.Enums;
 
-public class Class1
+public enum workflowStatus
 {
-	public Class1()
-	{
-	}
+    Active, 
+    Completed, 
+    Rejected, 
+    Expired
 }

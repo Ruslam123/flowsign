@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text.Json.Serialization;
 using flowsing.Domain.Enums;
 namespace flowsing.Domain.Entities;
 public class Document
