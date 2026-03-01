@@ -13,7 +13,8 @@ public class Document
     public DateTime UpdatedAt { get; private set; }
     private readonly List<DocumentVersion> _versions = new();
     public IReadOnlyList<DocumentVersion> Versions => _versions;
-    public IReadOnlyList<SignatureRequest> SignatureRequest { get; private set; }
+    private readonly List<SignatureRequest> _signatReq = new();
+    public IReadOnlyList<SignatureRequest> SignatReq => _signatReq;
 
     private Document(Guid id, string title, string? description, Guid ownerId, DocumentStatus status, SigningType signingType, DateTime? expiresAt, DateTime createdAt, DateTime updatedAt, IReadOnlyList<DocumentVersion> documentVersion, IReadOnlyList<SignatureRequest> signatureRequest)
     {
@@ -26,10 +27,8 @@ public class Document
         ExpiresAt = expiresAt;
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
-        DocumentVersion = documentVersion;
-        SignatureRequest = signatureRequest;
     }
-    private static Document Create(string title, string? description, Guid ownerId, SigningType signingType, DateTime? expiresAt)
+    public static Document Create(string title, string? description, Guid ownerId, SigningType signingType, DateTime? expiresAt)
     {
         return new Document(
             id: Guid.NewGuid(),
@@ -46,9 +45,9 @@ public class Document
             );
 
     }
-    private void Transition(DocumentStatus newStatus)
+    public void Transition(DocumentStatus newStatus)
     {
-        if (!CanTransition(nextStatus))
+        if (!CanTransition(newStatus))
         {
             throw new InvalidOperationException($"Impossible transition from {Status} to {nextStatus}");
         }
@@ -58,7 +57,7 @@ public class Document
     {
         return (Status, nextStatus) switch
         {
-            (DocumentStatus.Draft, DocumentStatus.) => true,
+            (DocumentStatus.Draft, DocumentStatus.Sent) => true,
             (DocumentStatus.Draft,DocumentStatus.Archived) => true,
             (DocumentStatus.Sent, DocumentStatus.Viewed) => true,
             (DocumentStatus.Sent, DocumentStatus.Rejected) => true,
