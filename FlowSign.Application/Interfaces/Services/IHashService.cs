@@ -1,6 +1,6 @@
 ﻿namespace FlowSign.Application.Interfaces.Services;
 
-public interface IhashService
+public interface IHashService
 {
-    string ComputeSha256(byte[] data)
+    string ComputeSha256(byte[] data);
 }

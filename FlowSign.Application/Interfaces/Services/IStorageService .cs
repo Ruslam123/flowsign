@@ -2,7 +2,7 @@
 
 public interface IStorageService
 {
-    byte[] SaveFile(string key);
-    byte[] GetFile(string key);
-    byte[] DeletFile(string key);
+    string SaveFile(byte[] File, string name);
+    string GetFile(byte[] File);
+    Task DeletFile(string path);
 }
