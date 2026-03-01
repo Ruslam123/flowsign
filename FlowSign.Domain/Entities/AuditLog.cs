@@ -12,7 +12,7 @@ public class AuditLog
     public string IpAddress { get; private set; }
     public string? Details { get; private set; }
 
-    public AuditLog(Guid id, Guid documentId, Guid userId, ActionType actionType, DateTime timestamp, string ipAddress, string? details)
+    public AuditLog(Guid id, Guid? documentId, Guid userId, ActionType actionType, DateTime timestamp, string ipAddress, string? details)
     {
         Id = id;
         DocumentId = documentId;

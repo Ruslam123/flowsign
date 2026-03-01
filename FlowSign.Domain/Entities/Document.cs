@@ -28,6 +28,22 @@ public class Document
         DocumentVersion = documentVersion;
         SignatureRequest = signatureRequest;
     }
+    public static Document Create(string title, string? description, Guid ownerId, SigningType signingType, DateTime? expiresAt)
+    {
+        return new Document(
+            id: Guid.NewGuid(),
+            title: title,
+            description: description,
+            ownerId: ownerId,
+            status: DocumentStatus.Draft,
+            signingType: signingType,
+            expiresAt: expiresAt,
+            createdAt: DateTime.UtcNow,
+            updatedAt: DateTime.UtcNow,
+            documentVersion: new List<DocumentVersion>(),
+            signatureRequest: new List<SignatureRequest>()
+            );
 
+    }
 
 }
