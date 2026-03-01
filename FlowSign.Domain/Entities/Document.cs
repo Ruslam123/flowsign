@@ -4,6 +4,7 @@ using flowsing.Domain.Enums;
 namespace flowsing.Domain.Entities;
 public class Document
 {
+	public Class1()
 	{
         SignatureRequest = new List<SignatureRequest>();
         DocumentVersion = new List<DocumentVersion>();
