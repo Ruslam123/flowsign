@@ -13,10 +13,10 @@ public class Document
     public DateTime UpdatedAt { get; private set; }
     private readonly List<DocumentVersion> _versions = new();
     public IReadOnlyList<DocumentVersion> Versions => _versions;
-    private readonly List<SignatureRequest> _signatReq = new();
-    public IReadOnlyList<SignatureRequest> SignatReq => _signatReq;
+    private readonly List<SignatureRequest> _signatureRequests = new();
+    public IReadOnlyList<SignatureRequest> SignatureRequest => _signatureRequests;
 
-    private Document(Guid id, string title, string? description, Guid ownerId, DocumentStatus status, SigningType signingType, DateTime? expiresAt, DateTime createdAt, DateTime updatedAt, IReadOnlyList<DocumentVersion> documentVersion, IReadOnlyList<SignatureRequest> signatureRequest)
+    private Document(Guid id, string title, string? description, Guid ownerId, DocumentStatus status, SigningType signingType, DateTime? expiresAt, DateTime createdAt, DateTime updatedAt)
     {
         Id = id;
         Title = title;
@@ -51,7 +51,7 @@ public class Document
         {
             throw new InvalidOperationException($"Impossible transition from {Status} to {nextStatus}");
         }
-        Status = nextStatus;
+        Status = newStatus;
     }
     private bool CanTransition(DocumentStatus nextStatus)
     {
