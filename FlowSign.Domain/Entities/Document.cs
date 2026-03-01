@@ -40,7 +40,7 @@ public class Document
             signingType: signingType,
             expiresAt: expiresAt,
             createdAt: DateTime.UtcNow,
-            updatedAt: DateTime.UtcNow,
+            updatedAt: DateTime.UtcNow
             );
 
     }
