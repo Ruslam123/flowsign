@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using flowsing.Domain.Enums;
+﻿using flowsing.Domain.Enums;
 namespace flowsing.Domain.Entities;
 public class Document
 {

@@ -13,4 +13,16 @@ public class SignatureRequest
     public string? RejectionReason { get; private set; }
     public string? DocumentVersionHash { get; private set; }
 
+    public SignatureRequest(Guid id, Guid workflowInstanceId, Guid documentId, Guid signerId, int order, SignatureRequestStatus status, DateTime? signedAt, string? rejectionReason, string? documentVersionHash)
+    {
+        Id = id;
+        WorkflowInstanceId = workflowInstanceId;
+        DocumentId = documentId;
+        SignerId = signerId;
+        Order = order;
+        Status = status;
+        SignedAt = signedAt;
+        RejectionReason = rejectionReason;
+        DocumentVersionHash = documentVersionHash;
+    }
 }
