@@ -1,6 +1,6 @@
 ﻿namespace flowsing.Domain.Enums;
 
-public enum workflowStatus
+public enum WorkflowStatus
 {
     Active, 
     Completed, 

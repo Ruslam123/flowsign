@@ -1,6 +1,6 @@
 ﻿namespace flowsing.Domain.Enums;
 
-public enum userRole
+public enum UserRole
 {
     Admin, 
     User, 

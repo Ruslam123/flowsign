@@ -1,6 +1,6 @@
 ﻿namespace flowsing.Domain.Enums;
 
-public enum signatureRequestStatus
+public enum SignatureRequestStatus
 {
     Pending,
     Active,
