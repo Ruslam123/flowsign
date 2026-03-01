@@ -11,10 +11,11 @@ public class Document
     public DateTime? ExpiresAt { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }
-    public IReadOnlyList<DocumentVersion> DocumentVersion { get; private set; }
+    private readonly List<DocumentVersion> _versions = new();
+    public IReadOnlyList<DocumentVersion> Versions => _versions;
     public IReadOnlyList<SignatureRequest> SignatureRequest { get; private set; }
 
-    public Document(Guid id, string title, string? description, Guid ownerId, DocumentStatus status, SigningType signingType, DateTime? expiresAt, DateTime createdAt, DateTime updatedAt, IReadOnlyList<DocumentVersion> documentVersion, IReadOnlyList<SignatureRequest> signatureRequest)
+    private Document(Guid id, string title, string? description, Guid ownerId, DocumentStatus status, SigningType signingType, DateTime? expiresAt, DateTime createdAt, DateTime updatedAt, IReadOnlyList<DocumentVersion> documentVersion, IReadOnlyList<SignatureRequest> signatureRequest)
     {
         Id = id;
         Title = title;
@@ -28,7 +29,7 @@ public class Document
         DocumentVersion = documentVersion;
         SignatureRequest = signatureRequest;
     }
-    public static Document Create(string title, string? description, Guid ownerId, SigningType signingType, DateTime? expiresAt)
+    private static Document Create(string title, string? description, Guid ownerId, SigningType signingType, DateTime? expiresAt)
     {
         return new Document(
             id: Guid.NewGuid(),
@@ -45,5 +46,28 @@ public class Document
             );
 
     }
-
+    private void Transition(DocumentStatus newStatus)
+    {
+        if (!CanTransition(nextStatus))
+        {
+            throw new InvalidOperationException($"Impossible transition from {Status} to {nextStatus}");
+        }
+        Status = nextStatus;
+    }
+    private bool CanTransition(DocumentStatus nextStatus)
+    {
+        return (Status, nextStatus) switch
+        {
+            (DocumentStatus.Draft, DocumentStatus.) => true,
+            (DocumentStatus.Draft,DocumentStatus.Archived) => true,
+            (DocumentStatus.Sent, DocumentStatus.Viewed) => true,
+            (DocumentStatus.Sent, DocumentStatus.Rejected) => true,
+            (DocumentStatus.Viewed, DocumentStatus.Signed) => true,
+            (DocumentStatus.Viewed, DocumentStatus.Rejected) => true,
+            (DocumentStatus.Signed, DocumentStatus.Archived) => true,
+            (DocumentStatus.Rejected, DocumentStatus.Draft) => true,
+            (DocumentStatus.Rejected, DocumentStatus.Archived) => true,
+            _ => false
+        };
+    }
 }
