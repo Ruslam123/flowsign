@@ -1,6 +1,7 @@
 ﻿namespace FlowSign.Application.Interfaces.Services;
 
-public interface IStorageService
+
+public interface IJwtService
 {
 
 }

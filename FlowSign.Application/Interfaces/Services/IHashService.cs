@@ -1,8 +1,11 @@
-﻿using System;
+﻿using System.Security.Cryptography;
+namespace FlowSign.Application.Interfaces.Services;
 
-public class Class1
+public interface IhashService
 {
-	public Class1()
-	{
-	}
+    string GetSha256Hash(byte[] data)
+    {
+        byte[] hash = SHA256.HashData(data);
+        return Convert.ToHexString(hash).ToLower(); // .ToLower() если нужен нижний регистр
+    }
 }
