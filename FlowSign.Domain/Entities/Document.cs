@@ -1,4 +1,5 @@
 ﻿using flowsing.Domain.Enums;
+using flowsing.Domain.Exceptions;
 namespace flowsing.Domain.Entities;
 public class Document
 {
@@ -47,7 +48,7 @@ public class Document
     {
         if (!CanTransition(newStatus))
         {
-            throw new InvalidOperationException($"Impossible transition from {Status} to {newStatus}");
+            throw new InvalidOperationException(Status, newStatus);
         }
         Status = newStatus;
     }
