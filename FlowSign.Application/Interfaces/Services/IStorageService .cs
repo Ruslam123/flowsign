@@ -2,7 +2,7 @@
 
 public interface IStorageService
 {
-    string SaveFile(byte[] File, string name);
-    string GetFile(byte[] File);
-    Task DeletFile(string path);
+    Task<string> SaveFileAsync(byte[] File, string name);
+    Task<byte[]> GetFileAsync(string path);
+    Task DeleteFileAsync(string path);
 }
