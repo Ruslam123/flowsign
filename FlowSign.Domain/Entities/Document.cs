@@ -48,7 +48,7 @@ public class Document
     {
         if (!CanTransition(newStatus))
         {
-            throw new InvalidOperationException(Status, newStatus);
+            throw new InvalidTransitionException(Status, newStatus);
         }
         Status = newStatus;
     }
