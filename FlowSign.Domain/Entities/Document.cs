@@ -2,14 +2,12 @@
 using System.Text.Json.Serialization;
 using flowsing.Domain.Enums;
 namespace flowsing.Domain.Entities;
-
 public class Document
 {
-    public Document()
-    {
+	{
         SignatureRequest = new List<SignatureRequest>();
         DocumentVersion = new List<DocumentVersion>();
-    }
+	}
     public Guid Id { get; set; }
     public string Title { get; set; }
     public string? Description { get; set; }
