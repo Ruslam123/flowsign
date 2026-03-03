@@ -8,14 +8,4 @@ public class CreateDocumentCommand
     public DataTime? ExpiresAt { get; init; }
     public List<Guid> SignerIds { get; init; }
     public Guid OwnerId { get; init; }
-
-    public CreateDocumentCommand(string title, string description, SigningType signingType, DateTime expiresAt, List<Guid> signerIds, Guid ownerId)
-    {
-        Title = title;
-        Description = description;
-        SigningType = signingType;
-        ExpiresAt = expiresAt;
-        SignerIds = signerIds;
-        OwnerId = ownerId;
-    }
 }
