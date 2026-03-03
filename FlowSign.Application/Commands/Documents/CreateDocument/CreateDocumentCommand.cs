@@ -8,4 +8,5 @@ public class CreateDocumentCommand
     public DataTime? ExpiresAt { get; init; }
     public List<Guid> SignerIds { get; init; }
     public Guid OwnerId { get; init; }
+    public string IpAddress { get; init; }
 }

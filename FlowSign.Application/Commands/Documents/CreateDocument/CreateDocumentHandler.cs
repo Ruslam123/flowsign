@@ -1,5 +1,6 @@
 ﻿namespace FlowSign.Application.Commands.Documents.CreateDocument;
 using FlowSign.Application.Repositories;
+using FlowSign.Domain.Entities;
 public class CreateDocumentHandler
 {
     private readonly IDocumentRepository _documentRepository;
@@ -12,18 +13,26 @@ public class CreateDocumentHandler
         _userRepository = userRepository;
         _auditLogRepository = auditLogRepository;
     }
-    public async CreateDocumentResponse Handle(CreateDocumentCommand request, CancellationToken cancellationToken)
+    public async Task<CreateDocumentResponse> Handle(CreateDocumentCommand request, CancellationToken cancellationToken)
     {
-        Documents document;
-        foreach (signerId in request.SignerIds)
+        foreach (var signerId in request.SignerIds)
         {
-            user = await _userRepository.GetByIdAsync(signerId);
-            if (user == null) { throw DomainException("Signer not found"); }
+            var user = await _userRepository.GetByIdAsync(signerId);
+            if (user == null) { throw new DomainException("Signer not found"); }
         }
-        document.Create(request.Title, request.Description, request.OwnerId, request.SigningType, request.ExpiresAt);
+        var document = Document.Create(request.Title, request.Description, request.OwnerId, request.SigningType, request.ExpiresAt);
         await _documentRepository.AddAsync(document);
-        auditLog = new AuditLog(Guid.NewGuid(), document.Id, document.OwnerId, ActionType.DocumentCreated, DateTime.UtcNow, null, null);
-        await _auditLogRepository.AddAsync(auditLog)
-        return new CreateDocumentResponse(document.Id);
+        auditLog = new AuditLog(Guid.NewGuid(), document.Id, document.OwnerId, ActionType.DocumentCreated, DateTime.UtcNow, request.IpAddress, null);
+        await _auditLogRepository.AddAsync(auditLog);
+        return new CreateDocumentResponse
+        {
+            Id = document.Id,
+            Title = document.Title,
+            Status = document.Status,
+            SigningType = document.SigningType,
+            CreatedAt = document.CreatedAt,
+            ExpiresAt = document.ExpiresAt,
+            SignerIds = request.SignerIds
+        };
     }
 }
