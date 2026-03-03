@@ -2,7 +2,6 @@
 using FlowSign.Application.Repositories;
 public class CreateDocumentHandler
 {
-    public record CreateDocumentResponse (Guid Id, string Title, string Content, Guid CreatedByUserId, DateTime CreatedAt);
     private readonly IDocumentRepository _documentRepository;
     private readonly IUserRepository _userRepository;
     private readonly IAuditLogRepository _auditLogRepository;
@@ -13,33 +12,18 @@ public class CreateDocumentHandler
         _userRepository = userRepository;
         _auditLogRepository = auditLogRepository;
     }
-    public async Task<Guid> Handle(CreateDocumentCommand request, CancellationToken cancellationToken)
+    public async CreateDocumentResponse Handle(CreateDocumentCommand request, CancellationToken cancellationToken)
     {
-        // Validate the user exists
-        var user = await _userRepository.GetByIdAsync(request.CreatedByUserId);
-        if (user == null) {
-            throw new Exception("User not found");
+        Documents document;
+        foreach (signerId in request.SignerIds)
+        {
+            user = await _userRepository.GetByIdAsync(signerId);
+            if (user == null) { throw DomainException("Signer not found"); }
         }
-        var document = new Domain.Entities.Document
-        {
-            Id = Guid.NewGuid(),
-            Title = request.Title,
-            Content = request.Content,
-            CreatedByUserId = request.CreatedByUserId,
-            CreatedAt = DateTime.UtcNow
-        };
+        document.Create(request.Title, request.Description, request.OwnerId, request.SigningType, request.ExpiresAt);
         await _documentRepository.AddAsync(document);
-        // Log the creation action in the audit log
-        var auditLogEntry = new Domain.Entities.AuditLog
-        {
-            Id = Guid.NewGuid(),
-            UserId = request.CreatedByUserId,
-            ActionType = "CreateDocument",
-            DocumentId = document.Id,
-            Timestamp = DateTime.UtcNow
-        };
-        await _auditLogRepository.AddAsync(auditLogEntry);
-        CreateDocumentResponse response = new CreateDocumentResponse(document.Id, document.Title, document.Content, document.CreatedByUserId, document.CreatedAt);
-        return response;
+        auditLog = new AuditLog(Guid.NewGuid(), document.Id, document.OwnerId, ActionType.DocumentCreated, DateTime.UtcNow, null, null);
+        await _auditLogRepository.AddAsync(auditLog)
+        return new CreateDocumentResponse(document.Id);
     }
 }
