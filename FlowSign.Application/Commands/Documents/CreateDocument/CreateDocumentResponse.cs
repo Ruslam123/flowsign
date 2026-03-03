@@ -6,7 +6,7 @@ public class CreateDocumentResponse
     public string Title { get; init; }
     public DocumentStatus Status { get; init; }
     public SigningType SigningType { get; init; }
-    public DataTime CreatedAt { get; init; }
-    public DataTime ExpiresAt { get; init; }
+    public DateTime CreatedAt { get; init; }
+    public DateTime ExpiresAt { get; init; }
     public List<Guid> SignerIds { get; init; }
 }

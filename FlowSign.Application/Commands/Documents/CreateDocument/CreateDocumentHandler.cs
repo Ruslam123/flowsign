@@ -1,6 +1,7 @@
 ﻿namespace FlowSign.Application.Commands.Documents.CreateDocument;
-using FlowSign.Application.Repositories;
+using FlowSign.Application.Interfaces.Repositories;
 using FlowSign.Domain.Entities;
+using FlowSign.Domain.Enums;
 public class CreateDocumentHandler
 {
     private readonly IDocumentRepository _documentRepository;
@@ -22,7 +23,7 @@ public class CreateDocumentHandler
         }
         var document = Document.Create(request.Title, request.Description, request.OwnerId, request.SigningType, request.ExpiresAt);
         await _documentRepository.AddAsync(document);
-        auditLog = new AuditLog(Guid.NewGuid(), document.Id, document.OwnerId, ActionType.DocumentCreated, DateTime.UtcNow, request.IpAddress, null);
+        var auditLog = new AuditLog(Guid.NewGuid(), document.Id, document.OwnerId, ActionType.DocumentCreated, DateTime.UtcNow, request.IpAddress, null);
         await _auditLogRepository.AddAsync(auditLog);
         return new CreateDocumentResponse
         {
