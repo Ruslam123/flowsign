@@ -14,6 +14,9 @@ public class FlowSignDbContext : DbContext
     public FlowSignDbContext(DbContextOptions<FlowSignDbContext> options) : base(options)
     {
     }
-
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(FlowSignDbContext).Assembly);
+    }
 
 }
