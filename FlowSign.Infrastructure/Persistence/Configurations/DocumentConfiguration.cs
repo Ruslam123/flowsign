@@ -2,8 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using FlowSign.Domain.Entities;
 using FlowSign.Domain.Enums;
+namespace FlowSign.Infrastructure.Persistence.Configurations;
 
-public class DocumentConfiguration : IEntityTypeConfiguration<Document> 
+public class DocumentConfiguration : IEntityTypeConfiguration<Document>
 {
     public void Configure(EntityTypeBuilder<Document> builder)
     {
@@ -17,15 +18,7 @@ public class DocumentConfiguration : IEntityTypeConfiguration<Document>
         builder.Property(d => d.ExpiresAt).IsRequired(false);
         builder.Property(d => d.CreatedAt).IsRequired();
         builder.Property(d => d.UpdatedAt).IsRequired();
-        builder.HasMany(d => d.Versions)
-               .WithOne()
-               .HasForeignKey(v => v.DocumentId)
-               .OnDelete(DeleteBehavior.Cascade);
-        builder.HasMany(d => d.SignatureRequest)
-               .WithOne()
-               .HasForeignKey(s => s.DocumentId)
-               .OnDelete(DeleteBehavior.Cascade);
-        builder.HasField("_versions").UsePropertyAccessMode(PropertyAccessMode.Field);
-        builder.HasField("_signatureRequests").UsePropertyAccessMode(PropertyAccessMode.Field);
+        builder.Navigation(d => d.Versions).HasField("_versions");
+        builder.Navigation(d => d.SignatureRequests).HasField("_signatureRequests");
     }
 }
