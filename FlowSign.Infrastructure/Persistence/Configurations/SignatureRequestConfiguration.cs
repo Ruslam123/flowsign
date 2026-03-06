@@ -10,10 +10,13 @@ public class SignatureRequestConfiguration : IEntityTypeConfiguration<SignatureR
     {
         builder.ToTable("signature_requests");
         builder.HasKey(s => s.Id);
+        builder.Property(s => s.WorkflowInstanceId).IsRequired();
         builder.Property(s => s.DocumentId).IsRequired();
         builder.Property(s => s.SignerId).IsRequired();
         builder.Property(s => s.Status).HasConversion<string>().IsRequired();
-        builder.Property(s => s.CreatedAt).IsRequired();
-        builder.Property(s => s.UpdatedAt).IsRequired();
+        builder.Property(s => s.Order).IsRequired();
+        builder.Property(s => s.SignedAt).IsRequired(false);
+        builder.Property(s => s.RejectionReason).IsRequired(false).HasMaxLength(500);
+        builder.Property(s => s.DocumentVersionHash).IsRequired(false).HasMaxLength(500);
     }
 }

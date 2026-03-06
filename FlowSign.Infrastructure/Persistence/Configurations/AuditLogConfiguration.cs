@@ -10,10 +10,11 @@ public class AuditLogConfiguration : IEntityTypeConfiguration<AuditLog>
     {
         builder.ToTable("audit_logs");
         builder.HasKey(a => a.Id);
-        builder.Property(a => a.Action).IsRequired().HasMaxLength(100);
-        builder.Property(a => a.EntityName).IsRequired().HasMaxLength(100);
-        builder.Property(a => a.EntityId).IsRequired();
+        builder.Property(a => a.DocumentId).IsRequired(false);
         builder.Property(a => a.UserId).IsRequired();
-        builder.Property(a => a.Timestamp).IsRequired();
+        builder.Property(a => a.ActionType).IsRequired().HasMaxLength(100);
+        builder.Property(a => a.Timestamp).IsRequired().HasMaxLength(100);
+        builder.Property(a => a.IpAddress).IsRequired();
+        builder.Property(a => a.Details).IsRequired(false).HasMaxLength(1000);
     }
 }

@@ -11,8 +11,11 @@ public class DocumentVersionConfiguration : IEntityTypeConfiguration<DocumentVer
         builder.ToTable("document_versions");
         builder.HasKey(dv => dv.Id);
         builder.Property(dv => dv.DocumentId).IsRequired();
+        builder.Property(dv => dv.FilePath).IsRequired().HasMaxLength(500);
+        builder.Property(dv => dv.OriginalFileName).IsRequired().HasMaxLength(500);
+        builder.Property(dv => dv.FileSizeBytes).IsRequired();
+        builder.Property(dv => dv.SHA256Hash).IsRequired().HasMaxLength(64);
         builder.Property(dv => dv.VersionNumber).IsRequired();
-        builder.Property(dv => dv.CreatedAt).IsRequired();
         builder.Property(dv => dv.UpdatedAt).IsRequired();
     }
 }
