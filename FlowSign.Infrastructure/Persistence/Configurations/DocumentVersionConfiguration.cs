@@ -16,6 +16,6 @@ public class DocumentVersionConfiguration : IEntityTypeConfiguration<DocumentVer
         builder.Property(dv => dv.FileSizeBytes).IsRequired();
         builder.Property(dv => dv.SHA256Hash).IsRequired().HasMaxLength(64);
         builder.Property(dv => dv.VersionNumber).IsRequired();
-        builder.Property(dv => dv.UpdatedAt).IsRequired();
+        builder.Property(dv => dv.UploadedAt).IsRequired();
     }
 }

@@ -11,9 +11,10 @@ public class WorkflowInstanceConfiguration : IEntityTypeConfiguration<WorkflowIn
         builder.ToTable("workflow_instances");
         builder.HasKey(w => w.Id);
         builder.Property(w => w.DocumentId).IsRequired();
-        builder.Property(w => w.SignerType).HasConversion<string>().IsRequired();
+        builder.Property(w => w.SigningType).HasConversion<string>().IsRequired();
         builder.Property(w => w.Status).HasConversion<string>().IsRequired();
         builder.Property(w => w.StartedAt).IsRequired();
         builder.Property(w => w.CompletedAt).IsRequired(false);
+        builder.Property(w => w.InitiatedBy).IsRequired();
     }
 }
