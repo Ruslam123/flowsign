@@ -1,6 +1,6 @@
 ﻿using System;
-namespace flowsing.Domain.Entities;
-using flowsing.Domain.Enums;
+namespace FlowSign.Domain.Entities;
+using FlowSign.Domain.Enums;
 
 public class AuditLog
 {

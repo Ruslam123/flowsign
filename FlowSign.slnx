@@ -1,3 +1,6 @@
 <Solution>
-  <Project Path="WebApplication1/WebApplication1.csproj" />
+  <Project Path="FlowSign.API/FlowSign.API.csproj" />
+  <Project Path="FlowSign.Application/FlowSign.Application.csproj" />
+  <Project Path="FlowSign.Domain/FlowSign.Domain.csproj" />
+  <Project Path="FlowSign.Infrastructure/FlowSign.Infrastructure.csproj" />
 </Solution>

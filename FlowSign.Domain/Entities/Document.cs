@@ -1,6 +1,6 @@
-﻿using flowsing.Domain.Enums;
-using flowsing.Domain.Exceptions;
-namespace flowsing.Domain.Entities;
+﻿using FlowSign.Domain.Enums;
+using FlowSign.Domain.Exceptions;
+namespace FlowSign.Domain.Entities;
 public class Document
 {
     public Guid Id { get; private set; }

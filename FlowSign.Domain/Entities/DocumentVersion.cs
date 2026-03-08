@@ -1,5 +1,5 @@
 ﻿using System;
-namespace flowsing.Domain.Entities;
+namespace FlowSign.Domain.Entities;
 
 public class DocumentVersion
 {

@@ -1,4 +1,4 @@
-﻿namespace flowsing.Domain.Enums;
+﻿namespace FlowSign.Domain.Enums;
 
 public enum UserRole
 {
