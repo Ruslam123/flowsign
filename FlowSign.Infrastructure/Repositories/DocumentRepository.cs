@@ -6,7 +6,7 @@ using FlowSign.Infrastructure.Persistence;
 
 public class DocumentRepository : IDocumentRepository
 {
-	public readonly FlowSignDbContext _context;
+    private readonly FlowSignDbContext _context;
 	public DocumentRepository(FlowSignDbContext context)
 	{
 		_context = context;
