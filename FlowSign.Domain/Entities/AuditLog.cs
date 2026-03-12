@@ -22,4 +22,5 @@ public class AuditLog
         IpAddress = ipAddress;
         Details = details;
     }
+    private AuditLog() { }
 }

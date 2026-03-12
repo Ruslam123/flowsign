@@ -2,6 +2,7 @@
 using FlowSign.Application.Interfaces.Repositories;
 using FlowSign.Domain.Entities;
 using FlowSign.Domain.Enums;
+using FlowSign.Domain.Exceptions;
 public class CreateDocumentHandler
 {
     private readonly IDocumentRepository _documentRepository;

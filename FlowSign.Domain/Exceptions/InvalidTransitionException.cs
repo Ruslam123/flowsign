@@ -1,4 +1,4 @@
-﻿using System;
+﻿using FlowSign.Domain.Enums;
 
 namespace FlowSign.Domain.Exceptions;
 

@@ -21,4 +21,5 @@ public class User
         IsActive = isActive;
         CreatedAt = createdAt;
     }
+    private User() { }
 }

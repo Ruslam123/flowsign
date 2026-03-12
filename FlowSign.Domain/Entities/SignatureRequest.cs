@@ -25,4 +25,5 @@ public class SignatureRequest
         RejectionReason = rejectionReason;
         DocumentVersionHash = documentVersionHash;
     }
+    private SignatureRequest() { }
 }

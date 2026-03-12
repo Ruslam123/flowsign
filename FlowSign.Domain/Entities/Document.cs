@@ -15,7 +15,7 @@ public class Document
     private readonly List<DocumentVersion> _versions = new();
     public IReadOnlyList<DocumentVersion> Versions => _versions;
     private readonly List<SignatureRequest> _signatureRequests = new();
-    public IReadOnlyList<SignatureRequest> SignatureRequest => _signatureRequests;
+    public IReadOnlyList<SignatureRequest> SignatureRequests => _signatureRequests;
 
     private Document(Guid id, string title, string? description, Guid ownerId, DocumentStatus status, SigningType signingType, DateTime? expiresAt, DateTime createdAt, DateTime updatedAt)
     {

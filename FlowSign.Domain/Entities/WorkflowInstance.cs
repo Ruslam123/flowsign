@@ -21,4 +21,5 @@ public class WorkflowInstance
         StartedAt = startedAt;
         CompletedAt = completedAt;
     }
+    private WorkflowInstance() { }
 }
