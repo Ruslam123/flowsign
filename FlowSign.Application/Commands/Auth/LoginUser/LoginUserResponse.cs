@@ -1,5 +1,4 @@
-﻿namespace FlowSign.Application.Commands.Auth.LoginUser;
-using 
+﻿namespace FlowSign.Application.Commands.Auth.LoginUser; 
 public class LoginUserResponse
 {
     public string UserName { get; set; }
