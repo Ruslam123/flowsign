@@ -1,5 +1,6 @@
 ﻿namespace FlowSign.Application.Commands.Auth.RegisterUser;
 using FlowSign.Application.Interfaces.Repositories;
+using FlowSign.Application.Interfaces.Services;
 using FlowSign.Domain.Entities;
 using FlowSign.Domain.Enums;
 using FlowSign.Domain.Exceptions;
@@ -18,7 +19,7 @@ public class RegisterUserHandler
     {
         var existingUser = await _userRepository.GetByEmailAsync(request.Email);
         if (existingUser != null) { throw new DomainException("Email already in use"); }
-        var passwordStrength = var passwordHash = _passwordHasher.Hash(request.Password); 
+        var passwordStrength = _passwordHasher.Hash(request.Password); 
         var user = new User(Guid.NewGuid(), request.Email, passwordHash, request.Name, request.Role, true, DateTime.UtcNow); 
         await _userRepository.AddAsync(user);
         var auditLog = new AuditLog(Guid.NewGuid(), user.Id, user.Id, ActionType.UserRegistered, DateTime.UtcNow, request.IpAddress, null);
