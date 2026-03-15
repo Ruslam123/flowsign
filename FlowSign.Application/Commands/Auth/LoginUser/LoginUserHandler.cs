@@ -22,11 +22,9 @@ public class LoginUserHandler
         var user = await _userRepository.GetByEmailAsync(request.Email);
         if (user == null || !_passwordHasher.Verify(request.Password, user.PasswordHash))
         {
-            var auditLog = new AuditLog(Guid.NewGuid(), null, null, ActionType.LoginFailed, DateTime.UtcNow, request.IpAddress, $"Failed login attempt for email: {request.Email}");
-            await _auditLogRepository.AddAsync(auditLog);
             throw new DomainException("Invalid email or password");
         }
-        var auditLogSuccess = new AuditLog(Guid.NewGuid(), user.Id, user.Id, ActionType.LoginSuccess, DateTime.UtcNow, request.IpAddress, null);
+        var auditLogSuccess = new AuditLog(Guid.NewGuid(), user.Id, user.Id, ActionType.UserLoggedIn, DateTime.UtcNow, request.IpAddress, null);
         await _auditLogRepository.AddAsync(auditLogSuccess);
         return new LoginUserResponse
         {
