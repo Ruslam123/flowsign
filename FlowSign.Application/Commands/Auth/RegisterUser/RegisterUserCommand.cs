@@ -2,7 +2,7 @@
 using FlowSign.Domain.Enums;
 public class RegisterUserCommand
 {
-    public string Name { get; init; } = null!;
+    public string FullName { get; init; } = null!;
     public string Email { get; init; } = null!;
     public string Password { get; init; } = null!;
     public UserRole Role { get; init; }

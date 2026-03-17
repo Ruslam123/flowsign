@@ -19,8 +19,8 @@ public class RegisterUserHandler
     {
         var existingUser = await _userRepository.GetByEmailAsync(request.Email);
         if (existingUser != null) { throw new DomainException("Email already in use"); }
-        var passwordStrength = _passwordHasher.Hash(request.Password); 
-        var user = new User(Guid.NewGuid(), request.Email, passwordHash, request.Name, request.Role, true, DateTime.UtcNow); 
+        var passwordHash = _passwordHasher.Hash(request.Password); 
+        var user = new User(Guid.NewGuid(), request.Email, passwordHash, request.FullName, request.Role, true, DateTime.UtcNow); 
         await _userRepository.AddAsync(user);
         var auditLog = new AuditLog(Guid.NewGuid(), user.Id, user.Id, ActionType.UserRegistered, DateTime.UtcNow, request.IpAddress, null);
         await _auditLogRepository.AddAsync(auditLog);
